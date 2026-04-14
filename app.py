@@ -8,6 +8,16 @@ import speech_recognition as sr
 import streamlit as st
 from streamlit_autorefresh import st_autorefresh
 
+try:
+    from streamlit.runtime.scriptrunner import get_script_run_ctx
+except Exception:
+    get_script_run_ctx = None
+
+
+if __name__ == "__main__" and callable(get_script_run_ctx) and get_script_run_ctx() is None:
+    print("This is a Streamlit app. Run it with: python -m streamlit run app.py")
+    raise SystemExit(0)
+
 
 def get_notes_filename():
     return f"voice_notes_{datetime.now().strftime('%Y-%m-%d')}.txt"
